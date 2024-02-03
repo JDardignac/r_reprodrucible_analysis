@@ -1,0 +1,104 @@
+---
+title: "Chapter 1 Notes_Reproducible"
+format: html
+editor: source
+---
+
+
+## Introduction to R and RStudio
+https://swcarpentry.github.io/r-novice-gapminder/01-rstudio-intro.html
+
+**What are R-Scripts?**
+
+*   Anything you write in the R consle will be saved to a file with you R code: this is what an R-Script is 
+
+**Ways to run code**
+
+*   Click run button with arrow at the top
+*   select "Run Lines" from the "Code" menu
+*   hit "ctrl + Enter"
+
+**Using R as a calculator**
+
+*   1 + 100 (input)
+*   [1] 101 (output)
+
+Anytime you hit enter and the output it a + and not a > it means the software is waiting for you to complete the command
+
+*   to cancel a commend hit "esc" and it should give back a >
+
+    *   If you are using R from the command line and not RStudio you have to use "ctrl + C"
+
+Some types of codes:
+
+  *   Parentheses: (, )
+  *   Exponents: ^ or **
+  *   Multiply: *
+  *   Divide: /
+  *   Add: +
+  *   Subtract: -
+
+EX: (3+5) * 2 [input] --> [1] 16 [output]
+
+**Comments can be made with using the "#" symbol**
+EX: using scientific notation
+*   [input] 5e3 --> [output] [1] 5000
+
+**Mathematical functions**
+
+*   getwd () gives you and absolute filepath
+**Variables and assignment**
+x <- 1/40 [<- assigns whatever it is pointing to to whatever is on the other side] [can also use = but not very common to use]
+*   if you want to reassign just do it again
+*   EX: x used to be assigned to 1/40 but just do X <- 100 to have it now assigned to 100
+*Variable names can contain letters, numbers, underscores and periods but no spaces. They must start with a letter or a period followed by a letter (they cannot start with a number nor an underscore). Variables beginning with a period are hidden variables.*
+
+>EX: periods.between.words
+     Underscores_between_words
+     camelCaseToSeparateWords
+
+**Vectors**
+
+*   a range of values/ characters
+
+>EX:[1:5 *input*] 1,2,3,4,5 *output*
+
+>2^(1:5 *input*) 2,4,8,18,32 *output* 
+>x <- 1:5 *input* 2^x *input* 1,4,8,16,32 *output*
+
+**Managing your environment**
+ls will list all of the variables and functions stored in the global environment (your working R session)
+
+*function rm() deleted objected that you put in the parentheses 
+
+**R Packages**
+*   data/code that gives a function
+*   check you installed packages: *installed.packages()*
+*   Install a package: *install.packages("packagename")*
+*   Update installed packages: *update.packages*
+*   Remove a package *remove.packages("packagename")*
+*   Make package available for use: *library(packagename)*
+
+
+**Class notes on packages**
+
+>library(chorddiag)
+
+> install.packages ('chorddiag')
+
+*   Need: R tool: go and install it
+
+*   CRAN R: the deflt package network
+
+*   rlandfile: in git hub, install link will be at the bottom
+
+*   chorddiag: in git hub, install link will be at the bottom
+
+> devetool::install_github("mattflor/chorddiag")
+
+> will ask if you want to update: say yes: have to type number corrilated to what you want
+
+*   CRAN Mirror error: could be a thing, just set it to nearest region
+
+
+
