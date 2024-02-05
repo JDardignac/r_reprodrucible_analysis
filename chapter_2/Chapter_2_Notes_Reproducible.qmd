@@ -1,0 +1,54 @@
+---
+title: "Chapter_2_Notes_Reproducible"
+format: html
+editor: source
+---
+
+##Project Management with RStudio
+
+Gotta keep a clean work space to make it easier to find things:
+
+treat raw data as read only
+
+Steps on creating a self-contained project
+
+1.  Click the “File” menu button, then “New Project”.
+
+2.  Click “New Directory”.
+
+3.  Click “New Project”.
+
+4.  Type in the name of the directory to store your project, e.g. “my_project”.
+
+5.  If available, select the check box for “Create a git repository.”
+
+6.  Click the “Create Project” button.
+
+## Things to practice for project organization
+
+**Treat data as read only**
+
+**Data Cleaning**
+
+*   Most data is "dirty" and needs to be looked over again and reproduced into a format R finds useful
+  * This can call for different folders for read-only or cleaned data 
+
+
+**Treat generated output as disposable**
+
+Tip for good practice
+
+Good Enough Practices for Scientific Computing gives the following recommendations for project organization:
+
+1.    Put each project in its own directory, which is named after the project.
+
+2.    Put text documents associated with the project in the doc directory.
+
+3.    Put raw data and metadata in the data directory, and files generated during cleanup and analysis in a results directory.
+
+4.    Put source for the project’s scripts and programs in the src directory, and programs brought in from elsewhere or compiled locally in the bin directory.
+
+5.    Name all files to reflect their content or function.
+
+
+Typing >getwd() pulls up the working directory you are on
