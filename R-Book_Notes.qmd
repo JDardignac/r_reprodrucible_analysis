@@ -1,0 +1,31 @@
+---
+title: "R-Book_Notes"
+format: html
+editor: source
+---
+## Introduction
+
+Approximately 80% of data analysis time is spent on cleaning and preparing data (Dasu and Johnson, 2003).
+
+Data preparation is not just an initial step but a recurring process as new problems arise or data is collected.
+
+Despite its time-consuming nature, there's been little research on effective data cleaning methods.
+
+Data cleaning involves various activities like outlier checking, date parsing, and missing value imputation.
+
+The paper focuses on data tidying, which involves structuring datasets to facilitate analysis.
+
+Tidy data principles offer a standardized approach to organizing data, simplifying initial cleaning.
+
+Tidy datasets and tools streamline data analysis, reducing time spent on logistical challenges.
+
+Tidy data principles draw from relational databases and Codd's relational algebra, framed for statisticians.
+
+While computer scientists contribute tools for data cleaning, they often lack clarity for statisticians.
+The development of tidy data is driven by real-world dataset challenges, leading to the creation of packages like reshape and reshape2 (Wickham, 2007).
+
+The paper provides a comprehensive framework for data organization, underlying related packages like plyr (Wickham, 2011) and ggplot2 (Wickham, 2009).
+
+The paper outlines its structure: defining tidy datasets, operations for tidying messy datasets, discussing tidy tools, and concluding with future approaches for data analysis enhancement.
+
+

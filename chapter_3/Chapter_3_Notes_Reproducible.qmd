@@ -6,51 +6,99 @@ editor: source
 
 ## Reading Help Files
 
-Randy Swaty Notes on chapter 1-3: 
+Can use function:
+
+?function_name help(function_name)
+
+to get help on a specific function you don't understand
+
+> ?write.table
+
+will load in a help page in Rstudio
+
+The sections the work page is broken down into are:
+
+**Description**: An extended description of what the function does.
+
+**Usage**: The arguments of the function and their default values (which can be changed).
+
+**Arguments**: An explanation of the data each argument is expecting.
+
+**Details**: Any important details to be aware of.
+
+**Value**: The data the function returns.
+
+**See Also**: Any related functions you might find useful. \* Examples: Some examples for how to use the function.
+
+some have same help file \> ?write.table() ?write.csv()
+
+## Special Operators
+
+Use: ?"\<-" ?`<-`
+
+## Getting help with packages
+
+Many packages include "vignettes," which are tutorials and extended example documentation.
+
+To list all vignettes for installed packages, use vignette() without any arguments.
+
+To list all available vignettes for a specific package, use vignette(package="package-name").
+
+To open a specified vignette, use vignette("vignette-name").
+
+If a package doesn’t have any vignettes, you can typically find help by typing help("package-name").
+
+RStudio offers a set of excellent cheatsheets for many packages.4
+
+## When you remember part of the funtion name
+
+You can perform a fuzzy search in R to find functions even if you're unsure about the exact package or spelling.
+
+To conduct a fuzzy search, use ??function_name in R.
+
+Fuzzy search involves searching for an approximate string match.
+
+For instance, if you recall that a function related to setting the working directory contains "set" in its name but aren't sure of the exact function name, you can use a fuzzy search to identify it.
+
+Example: To find functions related to setting the working directory, you can use **??set in R**
+
+## Randy Swaty Notes on chapter 1-3:
 
 PUll when first opening a callabe with other people
 
-## MOst common things to look for when you get errors
+## Most common things to look for when you get errors
 
-1. Reading in data
-
-```{r}
-data <- read.csv('dataset.csv')
-```
-> Solution: keep everything in a r-studio project and check for typos
-> google for the dataset
-> check directory 
-> use TAB for autofill to help prevent typos
-
-2. Packages
+1.  Reading in data
 
 ```{r}
-library(tidyverse)
-
-df <- cars %>%
-  filter
+##data <- read.csv('dataset.csv')
 ```
 
-* always check for packages
-* google the function or obv the error 
-* remember you can define which packages to get function for using
+> Solution: keep everything in a r-studio project and check for typos google for the dataset check directory use TAB for autofill to help prevent typos
 
-commute stage commit then push 
+2.  Packages
+
+```{r}
+##library(tidyverse)
+
+##df <- cars %>%
+  ##filter
+```
+
+-   always check for packages
+-   google the function or obv the error
+-   remember you can define which packages to get function for using
+
+commute stage commit then push
 
 chapter: exploring data frames
 
 srt(gapminder)
 
-* shows the structure of the data frame
+-   shows the structure of the data frame
 
-head
-* will show the first 6 rows of the data set
+head \* will show the first 6 rows of the data set
 
-Tail
-* looks at the last 6 rows of the data 
+Tail \* looks at the last 6 rows of the data
 
-google:
-base vs tidyverse functions
-
-
-
+google: base vs tidyverse functions
