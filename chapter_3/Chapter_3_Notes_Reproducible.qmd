@@ -1,0 +1,56 @@
+---
+title: "Chapter_3_Notes_Reproducibles"
+format: html
+editor: source
+---
+
+## Reading Help Files
+
+Randy Swaty Notes on chapter 1-3: 
+
+PUll when first opening a callabe with other people
+
+## MOst common things to look for when you get errors
+
+1. Reading in data
+
+```{r}
+data <- read.csv('dataset.csv')
+```
+> Solution: keep everything in a r-studio project and check for typos
+> google for the dataset
+> check directory 
+> use TAB for autofill to help prevent typos
+
+2. Packages
+
+```{r}
+library(tidyverse)
+
+df <- cars %>%
+  filter
+```
+
+* always check for packages
+* google the function or obv the error 
+* remember you can define which packages to get function for using
+
+commute stage commit then push 
+
+chapter: exploring data frames
+
+srt(gapminder)
+
+* shows the structure of the data frame
+
+head
+* will show the first 6 rows of the data set
+
+Tail
+* looks at the last 6 rows of the data 
+
+google:
+base vs tidyverse functions
+
+
+

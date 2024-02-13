@@ -1,0 +1,141 @@
+---
+title: "Homework on R-vectors & packages"
+format: html
+editor: source
+---
+
+## Vectors and data types 
+
+*   can assign a series of values to a vector using "c()" command
+
+> EX: weight_g <- c(50, 60, 65, 82)
+
+*   vectors can also have characters
+
+> animals <- c("Mouse", "rat", "dog")
+
+*   you need to add the quotes after each name to prevent R from just combining them together
+
+*   you can inspect the content of the vector: length() tells you how many elements are in a particular vector
+
+>length(weight_g)
+>length(animals)
+
+*   class() indicates what kind of object you are working with
+
+>class(weight_g)
+>class(animals)
+
+*   str() provides an overviews of the structure of an object and its elements 
+
+>str(weight)
+>str(animals)
+
+Can use c() function to add other elements to your vector 
+*   First line: weight_g, 90 is adding the value 90 to the end of the vector and 30 is being saved to the beginning, again saving the result back into weight_g
+
+
+> c() function to add other 
+> weight_g <- c(weight_g, 90) # add to the end of the vector
+> weight_g <- c(30, weight_) # add to the beginning of the vector
+> weight_g 
+
+*   Atomic vector: the simplest the data type and is a linear vector of a single type.
+*   we used some atomic vector types that R uses: "character" and "numeric" (or "double")
+*   other atomic vectors are:
+
+>"logical" for TRUE and FALSE (the boolean data type)
+
+>"integer" for integer numbers (e.g., 2L and the L indicates to R that it's an integer)
+
+>"complex" to represent complex numbers with real and imaginary parts (e.g., 1 + 4i) and that’s all we’re going to say about them
+
+>"raw" for bitstreams that we won’t discuss further
+
+You can check the type of your vector using the typeof() function and inputting your vector as the argument
+*   other important data structures (other then vectors) are:
+
+> lists (list)
+> matrices (matrix)
+> data frames (data.frame)
+> factors (factor)
+> arrays (array)
+
+you cant mix these types into a single vector because then R will think they are all the same type 
+
+## R-Packages 
+
+Packages contain data sets and specific functions to solve specific questions
+*   can install packages from CRAN (general packages), Bioconductor (biology related packages), or Github (developing versions of packages)
+
+> install.packages("package_name")
+
+EX:
+
+> install.packages("readr")
+
+It’s also possible to install multiple packages at the same time, as follow:
+
+## Install a package from Bioconductor 
+
+>source("https://bioconductor.org/biocLite.R")
+biocLite("limma")
+
+*   got an error/ warning in using a better system: https://bioconductor.org/install to download bioconductor packages
+
+
+## Install a packagae from GitHub
+*   need to have devtools
+*   EX: downloading survminer R package by A. Kassambara
+
+> install.packages("devtools")
+devtools::install_github("kassambara/survminer")
+
+R packages are installed in a directory called **library**. The R function **.libPaths()** can be used to get the path to the **library**.
+
+>.libPaths()
+
+## Load and use an R package
+
+you can load in packages using the library() function
+
+EX: importing a file using readr with function read_tsv() [in readr] can be used to import a tab separated .txt file
+
+>input: 
+# Import my data
+library("readr")
+my_data <- read_tsv("http://www.sthda.com/upload/decathlon.txt")
+# View the first 6 rows and tge first 6 columns
+# syntax: my_data[row, column]
+my_data[1:6, 1:6]
+
+>output:
+     name  100m Long.jump Shot.put High.jump  400m
+1  SEBRLE 11.04      7.58    14.83      2.07 49.81
+2    CLAY 10.76      7.40    14.26      1.86 49.37
+3  KARPOV 11.02      7.30    14.77      2.04 48.37
+4 BERNARD 11.02      7.23    14.25      1.92 48.93
+5  YURKOV 11.34      7.09    15.19      2.10 50.42
+6 WARNERS 11.11      7.60    14.31      1.98 48.68
+
+## View loaded R packages
+
+you can view a list of packages being used in your R session with the function search()
+
+when your done using a package like readr and want to unload it, your the function detach()
+
+> detach("readr", unload = TRUE)
+
+## Remove installed packages
+
+Use function remove.packages() to remove packages
+
+> remove.packages("package_name")
+
+## Update installed packages
+
+>type: update.packages
+
+or for specific packages
+
+> update.packages(oldPkgs = c("readr", "ggplot2"))

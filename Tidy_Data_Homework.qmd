@@ -1,0 +1,254 @@
+---
+title: "Tidy Data"
+format: html
+editor: source
+---
+
+## Chapter 4 Introduction to Data Wrangling
+
+## 4.1 Tidy Data 
+
+A dataset is messy or tidy depending on how rows, columns and tables are matched up with observations, variables and types.
+> each variable forms a column
+> each observation forms a row
+>each type of oservations units forma table
+
+## 4.2 Subset using filter
+
+Examining subset of data using the following code: 
+
+gapminder dataset then pipes 
+> The pipe function is %>% and is similar to a plumbing pipe that goes one direction: from left to right
+
+**Objective**: Analyze data for Australia.
+
+**Dataset**: Gapminder dataset.
+
+**Pipe Operator**: %>% passes data left to right.
+
+**Filtering**: Use filter() from dplyr to select Australia rows.
+
+**Display**: Pipe filtered data into head() to show top 12 rows.
+
+**Default Display**: head() shows 6 rows if not specified.
+
+**Package**: filter() is in dplyr within tidyverse.
+
+*   Note: No need for dplyr:: prefix if packages loaded.
+
+
+```{r}
+# Load the dplyr package
+library(dplyr)
+library(gapminder)
+
+# Assuming gapminder is already loaded or part of the tidyverse
+# If not, you might also need to load it using library(gapminder)
+
+# Your code
+gapminder %>% filter(country == "Australia") %>% head(n = 12)
+```
+
+## 4.3 Subset Using multiple conditions 
+
+Selection Criteria: Observations are chosen based on 
+
+continent and year.
+
+Display: The head() function is used to show some of the selected rows.
+
+Data Flow: The gapminder dataframe is piped into the filter() function.
+
+Filtering Conditions: The logical condition inside filter() restricts the continent to "Oceania" and the year to be 1997.
+
+Condition Combination: Both conditions (continent is "Oceania" AND year is 1997) must be true for a row to be included in the filtered dataframe.
+
+Output: The resulting dataframe is then piped to the head() function for display.
+
+```{r}
+gapminder %>% 
+  dplyr::filter(continent=="Oceania" & year==1997) %>% 
+  head()
+
+```
+
+The next example uses an “or” condition to specify the desired rows in the first filter expression - the next filter permits only observations from 1997.
+
+```{r}
+gapminder %>% 
+  dplyr::filter(continent=="Oceania" | continent =="Americas") %>%
+  dplyr::filter(year==1997) %>% 
+  head()
+
+```
+
+The next example selects observations/rows from a list of countries and also restricts year to 1997.
+
+```{r}
+gapminder %>% 
+  filter(country %in% c("Australia", "New Zealand","Argentina") & year==1997) %>% 
+  head()
+```
+
+Filtering Strategy: Observations are selected by excluding one continent (Oceania) and specifying a particular year.
+
+Syntax for Exclusion: The "!=" syntax is used to omit the specified continent (Oceania).
+
+Year Specification: The code year == 1997 checks if the year is equal to 1997.
+
+Logical Check: The double equal sign == indicates a logical check.
+
+
+```{r}
+gapminder %>% 
+  filter(continent!="Oceania" & year==1997) %>% 
+  head()
+```
+
+note: 
+* Functionality: The filter() function accepts or rejects rows in a dataframe based on specified logical conditions.
+
+Role: It plays a crucial role in subsetting data based on defined criteria.
+
+Criteria Specification: Logical conditions are specified inside the filter() function to determine which rows are included or excluded.
+
+Decision Making: Rows that meet the specified conditions are retained, while those that do not are excluded from the resulting dataframe.
+
+Flexibility: This function offers flexibility in customizing data selection criteria according to specific needs.
+
+Core Process: Filtering is a fundamental step in data manipulation and analysis workflows.
+
+## 4.4 Saving as a new dataframe
+
+using new dataframe called gap97
+
+```{r}
+gap97 <- gapminder %>% 
+  filter(continent!="Oceania" & year==1997) 
+#
+dplyr::glimpse(gap97)
+```
+
+## 4.5 Subeset using top_n
+making a dataset based on 10 countries in 1997
+
+```{r}
+gapminder %>% filter(year==1997) %>%
+  top_n(n = 10, wt = gdpPercap) %>%
+  head(n=10)
+```
+
+## 4.6 Subset using select 
+
+Row Control: The filter() function manages the rows of the dataframe based on specified logical conditions.
+
+Variable Selection: Occasionally, there's a need to include only certain variables (columns) in a dataset.
+
+Subset Creation: When the original dataset contains numerous variables, it's common to create a subset with only a select few variables.
+
+Functionality: The select() function is utilized for both selecting and renaming variables within a dataframe.
+
+Purpose: It serves to streamline the dataset by focusing on specific variables of interest.
+
+Flexibility: The select() function provides flexibility in choosing which variables to include and how to label them within the resulting dataframe.
+
+```{r}
+# the next command selects three variables and renames two of them:
+gapminder %>% 
+  dplyr::select(country, Year=year,LifeExp=lifeExp) %>% 
+  head()
+```
+
+```{r}
+# to change the order of display, puts year first in the list of variables
+gapminder %>% 
+  select(year,everything()) %>% 
+  head()
+```
+
+Output Management: The profiling_num command from the funModeling package generates extensive output, which may contain elements we wish to exclude.
+
+Modification: Methods for modifying the output of this command are demonstrated.
+
+DataFrame Structure: The output is a dataframe with numerous columns, some of which we might not want to display or analyze further.
+
+Column Removal: Unwanted columns of summary statistics can be removed by selecting a list of column names preceded by a "minus" sign (-).
+
+DataFrame Transformation: The modified dataframe is then piped into the kable command from the knitr package to facilitate a more visually appealing tabular display.
+
+Purpose: This process allows for more refined presentation and analysis of the summary statistics generated by the profiling_num command.
+
+```{r}
+# Let's observe the contents of profiling_num:
+##funModeling::profiling_num(gapminder) %>% 
+  ##dplyr::glimpse()
+
+## Rows: 4
+## Columns: 16
+## $ variable       <chr> "year", "lifeExp", "pop", "gdpPercap"
+## $ mean           <dbl> 1.979500e+03, 5.947444e+01, 2.960121e+07, 7.215327e+03
+## $ std_dev        <dbl> 1.726533e+01, 1.291711e+01, 1.061579e+08, 9.857455e+03
+## $ variation_coef <dbl> 0.008722066, 0.217187544, 3.586268548, 1.366182632
+## $ p_01           <dbl> 1952.0000, 33.4926, 154117.9200, 369.2201
+## $ p_05           <dbl> 1952.0000, 38.4924, 475458.9000, 547.9964
+## $ p_25           <dbl> 1965.750, 48.198, 2793664.000, 1202.060
+## $ p_50           <dbl> 1979.5000, 60.7125, 7023595.5000, 3531.8470
+## $ p_75           <dbl> 1.993250e+03, 7.084550e+01, 1.958522e+07, 9.325462e+03
+## $ p_95           <dbl> 2007.000, 77.437, 89822054.500, 26608.333
+## $ p_99           <dbl> 2.007000e+03, 8.023892e+01, 6.319900e+08, 3.678357e+04
+## $ skewness       <dbl> 0.0000000, -0.2524798, 8.3328742, 3.8468819
+## $ kurtosis       <dbl> 1.783217, 1.873099, 80.716151, 30.431702
+## $ iqr            <dbl> 2.750000e+01, 2.264750e+01, 1.679156e+07, 8.123402e+03
+## $ range_98       <chr> "[1952, 2007]", "[33.4926, 80.23892]", "[154117.92, 63199000…
+## $ range_80       <chr> "[1957, 2002]", "[41.5108, 75.097]", "[946367.1, 54801369.5]…
+```
+
+
+
+```{r}
+# now remove unwanted columns from summary display
+##funModeling::profiling_num(gapminder) %>%
+  ##select(-c("variation_coef","skewness","kurtosis","range_98","range_80","p_01","p_99")) %>%
+  ##knitr::kable()
+
+
+```
+
+In the next command we take a different approach - we explicitly select the statistics (columns) we want to keep and display. The most commonly used summaries are chosen.
+
+```{r}
+##funModeling::profiling_num(gapminder) %>%
+  ##select(c("variable","mean","std_dev","p_25","p_50","p_75")) %>%
+  ##knitr::kable()
+```
+
+
+## 4.7 Order using arrange
+
+Filtering using filter(year==1997): This command selects only the rows in the dataframe where the year variable equals 1997.
+
+The double equal sign == is used for a logical check: It checks if the value of the variable (year) is equal to 1997.
+
+The desc function: It sorts the values in descending order, meaning from large to small by default.
+
+This arrangement is used for variables such as life expectancy, where you might want to know the countries with the largest or smallest values.
+
+The result of this pipeline is a filtered and sorted dataframe, typically used for further analysis or visualization purposes.
+
+```{r}
+# This command will show the countries with highest life expectancy because 
+# the data are arranged in descending order of life expectancy (larger to smaller)
+gapminder %>% 
+  dplyr::filter(year==1997) %>%   
+  dplyr::select(country, continent, lifeExp) %>% 
+  dplyr::arrange(desc(lifeExp)) %>% 
+  head()
+```
+## 4.8 Grouped Filter
+
+## 4.9 New Vatiables Using Mutate
+
+## 4.10 Simple counting using tally () and count
+
+## 4.11 Missing Values
+
