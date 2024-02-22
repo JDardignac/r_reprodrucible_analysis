@@ -1,0 +1,369 @@
+---
+title: "Chapter 6 Notes"
+format: html
+editor: source
+---
+
+## Subsetting Data
+
+* R offers powerful subset operators for performing complex operations on datasets.
+
+* Six different ways exist to subset any kind of object in R.
+
+* There are three different subsetting operators tailored for different data structures.
+
+* The numeric vector is considered the workhorse of R, serving as a fundamental data structure for many operations.
+
+```{r}
+x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x) <- c('a', 'b', 'c', 'd', 'e')
+x
+```
+
+##Accessing elements using thier indices
+
+* To extract elements of a vector we can give their corresponding index, starting from one:
+
+```{r}
+x[1]
+```
+
+```{r}
+x[4]
+
+```
+
+* the square brackets operator is a function: means get me the nth element
+
+```{r}
+x[c(1, 3)]
+```
+
+```{r}
+x[1:4]
+```
+
+```{r}
+1:4
+```
+
+```{r}
+c(1, 2, 3, 4)
+```
+
+```{r}
+x[6]
+```
+
+```{r}
+x[0]
+```
+
+* In many programming languages (C and Python, for example), the first element of a vector has an index of 0. In R, the first element is 1.
+
+## Skipping and removing elements
+
+* In R, using a negative number as the index of a vector results in returning every element except for the one specified.
+
+```{r}
+x[-2]
+```
+
+```{r}
+x[c(-1, -5)]  # or x[-c(1,5)]
+```
+
+
+> TIP: A common trip up for novices occurs when trying to skip slices of a vector. It’s natural to try to negate a sequence like so:
+
+> x[-1:3]
+This gives and error: Error in x[-1:3]: only 0's may be mixed with negative subscripts
+
+* The order of operations is crucial, with ":" being treated as a function.
+* The function ":" takes -1 as its first argument and 3 as its second, generating the sequence: c(-1, 0, 1, 2, 3).
+* The correct approach is to encapsulate the function call in brackets to ensure the "-1" applies as intended.
+
+```{r}
+x[-(1:3)]
+```
+
+To remove elements from a vector, we need to assign the result back into the variable:
+
+```{r}
+x <- x[-4]
+x
+```
+
+##**Challenge 1**
+
+```{r}
+x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x) <- c('a', 'b', 'c', 'd', 'e')
+print(x)
+```
+* over functions that will give the same output
+
+```{r}
+x[2:4]
+```
+```{r}
+x[-c(1,5)]
+```
+
+## Subsetting by name
+
+We can extract elements by using their name, instead of extracting by index:
+
+```{r}
+x <- c(a=5.4, b=6.2, c=7.1, d=4.8, e=7.5) # we can name a vector 'on the fly'
+x[c("a", "c")]
+```
+
+
+## Subsetting through other logical operations
+
+**Logical Vector to subset**
+
+```{r}
+x[c(FALSE, FALSE, TRUE, FALSE, TRUE)]
+```
+* Comparison operators in R (e.g., >, <, ==) generate logical vectors.
+
+* These operators can be utilized for concise vector subsetting.
+
+* Subsetting vectors using comparison operators yields the same result as longer methods.
+
+```{r}
+x[x > 7]
+```
+
+* Initially, the statement evaluates whether each element of the vector x is greater than 7, resulting in a logical vector (FALSE, FALSE, TRUE, FALSE, TRUE).
+
+* Subsequently, it selects the elements of x corresponding to the TRUE values in the logical vector.
+
+* Alternatively, the == operator can be used to replicate the indexing by name method, requiring its usage for comparisons instead of the = operator.
+
+
+```{r}
+x[names(x) == "a"]
+```
+
+**Combining Logical Criteria in R:**
+
+**Logical AND Operator (&):**
+
+Returns TRUE if both the left and right conditions are TRUE.
+
+**Logical OR Operator (|):**
+
+Returns TRUE if either the left or right (or both) conditions are TRUE.
+
+**Use of && and ||:**
+
+Two-character operators only consider the first element of each vector, ignoring the rest.
+Generally not recommended for data analysis, suitable for programming purposes.
+
+**Logical NOT Operator (!):**
+
+Converts TRUE to FALSE and FALSE to TRUE.
+Can negate a single logical condition or a whole vector of conditions.
+
+**Comparison within a Single Vector:**
+
+**all() Function:** Returns TRUE if every element of the vector is TRUE.
+
+**any() Function:** Returns TRUE if one or more elements of the vector are TRUE.
+
+These operators and functions provide flexibility in combining and evaluating logical conditions for data analysis tasks in R.
+
+
+**Challenge 2**
+```{r}
+x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x) <- c('a', 'b', 'c', 'd', 'e')
+print(x)
+```
+* Write a subsetting command to return the values in x that are greater than 4 and less than 7.
+
+```{r}
+x_subset <- x[x<7 & x>4]
+print(x_subset)
+```
+
+## SKipping named elements 
+
+* Skipping or removing named elements is challenging
+
+* Attempting to skip a named element by negating the string results in an error
+
+* R complains about not knowing how to take the negative of a string
+
+```{r}
+x <- c(a=5.4, b=6.2, c=7.1, d=4.8, e=7.5) # we start again by naming a vector 'on the fly'
+x[-"a"]
+```
+* However, we can use the != (not-equals) operator to construct a logical vector that will do what we want:
+
+```{r}
+x[names(x) != "a"]
+```
+
+* Skipping multiple named indices is a little bit harder still. Suppose we want to drop the "a" and "c" elements, so we try this:
+
+```{r}
+x[names(x)!=c("a","c")]
+```
+* R performed an action but issued a warning worth noting
+* The outcome was incorrect, as the "c" element remained in the vector despite attempting to exclude it
+* Question arises regarding the actual functionality of the != operator in this context
+
+**Recycling**
+
+```{r}
+names(x) != c("a", "c")
+```
+* Querying why R outputs TRUE as the third element despite a seemingly false condition
+
+* Explanation lies in how R interprets the != operator, comparing elements of different vectors
+
+* Raises questions about the implications of comparing vectors of unequal lengths
+
+* R repeats the vector c("a", "c") to match the length of another vector names(x)
+
+* The mismatch between the recycled elements and the elements of names(x) leads to the != operator evaluating to TRUE
+
+*A warning message is issued by R due to the uneven lengths of vectors
+
+* Recycling rule can introduce subtle bugs if not handled properly
+
+* To match each element of one vector with all elements of another, use the %in% operator along with the ! operator to exclude values
+
+```{r}
+x[! names(x) %in% c("a","c") ]
+```
+
+## Handling special values
+
+In R, to manage data with missing, infinite, or undefined values, use functions like is.na, is.nan, is.infinite, is.finite, and na.omit to identify or filter out such data from vectors, matrices, or data frames.
+
+
+## Factor Subsetting
+
+After exploring vector subsetting, it's noted that factor subsetting operates identically.
+
+```{r}
+f <- factor(c("a", "a", "b", "c", "c", "d"))
+f[f == "a"]
+```
+
+
+```{r}
+f[f %in% c("b", "c")]
+```
+
+
+
+```{r}
+f[1:3]
+```
+
+
+Skipping elements will not remove the level even if no more of that category exists in the factor:
+
+```{r}
+f[-3]
+```
+
+
+## Matrix Subsetting
+
+Matrices are also subsetted using the [ function. In this case it takes two arguments: the first applying to the rows, the second to its columns:
+
+
+```{r}
+set.seed(1)
+m <- matrix(rnorm(6*4), ncol=4, nrow=6)
+m[3:4, c(3,1)]
+```
+
+
+You can leave the first or second arguments blank to retrieve all the rows or columns respectively:
+
+```{r}
+m[, c(3,4)]
+```
+
+
+If we only access one row or column, R will automatically convert the result to a vector:
+
+```{r}
+m[3,]
+```
+
+
+If you want to keep the output as a matrix, you need to specify a third argument; drop = FALSE:
+
+```{r}
+m[3, , drop=FALSE]
+```
+
+Unlike vectors, if we try to access a row or column outside of the matrix, R will throw an error:
+
+```{r}
+m[, c(3,6)]
+```
+
+Because matrices are vectors, we can also subset using only one argument:
+
+```{r}
+m[5]
+```
+
+This usually isn’t useful, and often confusing to read. However it is useful to note that matrices are laid out in column-major format by default. That is the elements of the vector are arranged column-wise:
+
+
+```{r}
+matrix(1:6, nrow=2, ncol=3)
+```
+
+
+If you wish to populate the matrix by row, use byrow=TRUE:
+
+```{r}
+matrix(1:6, nrow=2, ncol=3, byrow=TRUE)
+```
+
+
+## List subsetting
+
+we'll introduce  three subsetting operators for lists—[, [[, and $—noting that [ is used for subsetting without extracting elements, always returning a list.
+
+
+```{r}
+xlist <- list(a = "Software Carpentry", b = 1:10, data = head(mtcars))
+xlist[1]
+```
+
+
+This returns a list with one element.
+```{r}
+xlist[1:2]
+```
+
+To extract individual elements of a list, you need to use the double-square bracket function: [[.
+
+
+```{r}
+xlist[[1]]
+```
+
+Notice that now the result is a vector, not a list.
+
+You can’t extract more than one element at once:
+
+
+```{r}
+xlist[[1:2]]
+```
+
+

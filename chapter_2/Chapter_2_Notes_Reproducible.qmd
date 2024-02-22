@@ -36,7 +36,7 @@ Steps on creating a self-contained project
 
 **Treat generated output as disposable**
 
-Tip for good practice
+Tip for good practice:
 
 Good Enough Practices for Scientific Computing gives the following recommendations for project organization:
 
@@ -52,3 +52,27 @@ Good Enough Practices for Scientific Computing gives the following recommendatio
 
 
 Typing >getwd() pulls up the working directory you are on
+
+**Separate function definition and application**
+
+* A recommended approach in R is to begin by writing code in a .R script.
+
+* Run selected lines either via keyboard shortcuts or the "Run" button in the RStudio console.
+
+* Initially, the .R script often contains many directly executed lines during the project's early stages.
+
+* Over time, reusable code segments are extracted into separate functions.
+
+* It's advisable to organize these functions into two folders: one for reusable functions and another for analysis scripts.
+
+
+**Working Directory**
+
+* Understanding R's current working directory is crucial for file access operations.
+
+* R searches for files relative to the current working directory when accessing external files like data files.
+
+* Every time you create a new RStudio Project, a new directory is created specifically for that project.
+
+* Opening an existing .Rproj file sets R's working directory to the folder containing that file, facilitating project-specific operations.
+
